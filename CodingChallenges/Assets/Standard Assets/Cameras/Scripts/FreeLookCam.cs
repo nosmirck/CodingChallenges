@@ -23,6 +23,7 @@ namespace UnityStandardAssets.Cameras
         [SerializeField] private bool m_ClickAndDrag = false; // Whether the cursor should be hidden and locked.
         [SerializeField] private bool m_VerticalAutoReturn = false; // set wether or not the vertical axis should auto return
         [SerializeField] private bool m_EnableZoom = false; // set wether or not the vertical axis should auto return
+        [SerializeField] private Vector2 m_ZoomValues = new Vector2 (-2, -12); // set wether or not the vertical axis should auto return
 
         private float m_LookAngle; // The rig's y axis rotation.
         private float m_TiltAngle; // The pivot's x axis rotation.
@@ -77,10 +78,10 @@ namespace UnityStandardAssets.Cameras
                 float zoom = Input.GetAxis ("Mouse ScrollWheel");
                 Vector3 camPos = m_Cam.localPosition;
                 camPos.z += zoom * m_TurnSpeed;
-                if (camPos.z < -12f)
-                    camPos.z = -12f;
-                if (camPos.z > -2f)
-                    camPos.z = -2f;
+                if (camPos.z < m_ZoomValues.y)
+                    camPos.z = m_ZoomValues.y;
+                if (camPos.z > m_ZoomValues.x)
+                    camPos.z = m_ZoomValues.x;
                 m_Cam.localPosition = camPos;
             }
         }
